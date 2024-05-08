@@ -1,0 +1,101 @@
+﻿@{ ViewBag.Title = "Index"; }
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f8f9fa;
+    }
+
+    .login-container {
+        max-width: 400px;
+        width: 100%;
+        padding: 50px;
+        margin-top:50px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }   
+</style>
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+<div class="row text-justify">
+    <div class="col-md-7">
+        <div class="center-block">
+            <img src="~/img/I2.svg" width="70%" height="70%" />
+        </div>
+    </div>
+
+    <div class="col-md-5 login-container">
+        <input id="switchButton" type="checkbox" data-toggle="switchbutton" checked data-onlabel="Login" data-offlabel="Sign Up" data-onstyle="primary" data-offstyle="warning">
+        <div id="loginForm" style="display:block;">
+            <h3>Login</h3>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control border-primary" id="loginUsername" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control border-primary" id="loginPassword" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary"style="width:94%;">Login</button>
+            </form>
+        </div>
+        <div id="registerForm" style="display:none;">
+            <h3>Sign Up</h3>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control border-primary" id="registerUsername" placeholder="Enter User Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control  border-primary" id="registerPhone" placeholder="Enter Phone">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control  border-primary" id="registerEmail" placeholder="Enter Email">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control  border-primary" id="registerPassword" placeholder="Enter Password">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control  border-primary" id="confirmPassword" placeholder="Confirm Password">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control border-war" id="Organization" placeholder="Enter Organization">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control border-war" id="department" placeholder="Enter Department">
+                </div>
+                <button type="submit" class="btn btn-warning" style="width:94%;">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Include jQuery before your script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    // Use a self-executing anonymous function to ensure jQuery is available
+    (function ($) {
+        // Wait for the document to be ready
+        $(document).ready(function () {
+            // Handle switch button change event
+            $('#switchButton').on('change', function () {
+                var isChecked = $(this).prop('checked');
+                if (isChecked) {
+                    // Show Login Form and hide Register Form
+                    $('#loginForm').show();
+                    $('#registerForm').hide();
+                } else {
+                    // Show Register Form and hide Login Form
+                    $('#registerForm').show();
+                    $('#loginForm').hide();
+                }
+            });
+        });
+    })(jQuery); // Pass jQuery as an argument to the self-executing function
+</script>
+
