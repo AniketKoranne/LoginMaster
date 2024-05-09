@@ -1,8 +1,7 @@
-﻿@{ ViewBag.Title = "Index"; }
-@{
+﻿@{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-
 <style>
     body {
         display: flex;
@@ -16,14 +15,15 @@
         max-width: 400px;
         width: 100%;
         padding: 50px;
-        margin-top:50px;
+        margin-top: 50px;
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }   
+    }
 </style>
 <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+
 <div class="row text-justify">
     <div class="col-md-7">
         <div class="center-block">
@@ -35,42 +35,48 @@
         <input id="switchButton" type="checkbox" data-toggle="switchbutton" checked data-onlabel="Login" data-offlabel="Sign Up" data-onstyle="primary" data-offstyle="warning">
         <div id="loginForm" style="display:block;">
             <h3>Login</h3>
-            <form>
+            @using (Html.BeginForm("Login", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
                 <div class="form-group">
-                    <input type="text" class="form-control border-primary" id="loginUsername" placeholder="Email Address">
+                    <input type="text" class="form-control border-primary" id="loginUsername" name="Email" placeholder="Email Address">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control border-primary" id="loginPassword" placeholder="Password">
+                    <input type="password" class="form-control border-primary" id="loginPassword" name="Password" placeholder="Password">
                 </div>
-                <button type="submit" class="btn btn-primary"style="width:94%;">Login</button>
-            </form>
+                <button type="submit" class="btn btn-primary" style="width:94%;">Login</button>
+            }
         </div>
         <div id="registerForm" style="display:none;">
             <h3>Sign Up</h3>
-            <form>
+            @using (Html.BeginForm("Register", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
                 <div class="form-group">
-                    <input type="text" class="form-control border-primary" id="registerUsername" placeholder="Enter User Name">
+                    <input type="text" class="form-control border-primary" id="registerUsername" name="UserName" placeholder="Enter User Name">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control  border-primary" id="registerPhone" placeholder="Enter Phone">
+                    <input type="text" class="form-control border-primary" id="registerPhone" name="Phone" placeholder="Enter Phone">
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control  border-primary" id="registerEmail" placeholder="Enter Email">
+                    <input type="email" class="form-control border-primary" id="registerEmail" name="Email" placeholder="Enter Email">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control  border-primary" id="registerPassword" placeholder="Enter Password">
+                    <input type="password" class="form-control border-primary" id="registerPassword" name="Password" placeholder="Enter Password">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control  border-primary" id="confirmPassword" placeholder="Confirm Password">
+                    <input type="password" class="form-control border-primary" id="confirmPassword" name="ConfirmPassword" placeholder="Confirm Password">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control border-war" id="Organization" placeholder="Enter Organization">
+                    <input type="text" class="form-control border-war" id="Organization" name="Organization" placeholder="Enter Organization">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control border-war" id="department" placeholder="Enter Department">
+                    <input type="text" class="form-control border-war" id="department" name="Department" placeholder="Enter Department">
                 </div>
                 <button type="submit" class="btn btn-warning" style="width:94%;">Sign Up</button>
-            </form>
+            }
         </div>
     </div>
 </div>
@@ -98,4 +104,3 @@
         });
     })(jQuery); // Pass jQuery as an argument to the self-executing function
 </script>
-
