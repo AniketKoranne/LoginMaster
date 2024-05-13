@@ -6,28 +6,110 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        /* Sidebar styles */
+        .sidebar {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #f1f1f1;
+            padding-top: 20px;
+        }
+
+            .sidebar a {
+                display: block;
+                padding: 10px;
+                text-decoration: none;
+                color: black;
+            }
+
+                .sidebar a.active {
+                    background-color: #4CAF50;
+                    color: white;
+                }
+
+                .sidebar a:hover:not(.active) {
+                    background-color: #555;
+                    color: white;
+                }
+        /* Top Navbar styles */
+        .navbar-top {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: calc(100% - 200px); /* Width minus sidebar width */
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            z-index: 1000; /* Ensure top placement */
+        }
+
+            .navbar-top a {
+                color: white;
+                text-decoration: none;
+                margin-left: 10px;
+            }
+
+            .navbar-top .navbar-text {
+                margin-right: 10px;
+            }
+
+        .search-form {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .user-profile {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #ccc;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a class="active" href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <!-- Dynamically generated list items -->
+        @if (ViewBag.DynamicItems != null)
+        {
+            foreach (var item in ViewBag.DynamicItems)
+            {
+                <a href="@item.Url">@item.Title</a>
+            }
+        }
+    </div>
+
+    <!-- Top Navbar -->
+    <div class="navbar-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    @*<span class="icon-bar"></span>*@
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink((string)ViewBag.ApplicationName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Brand Name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <!-- Welcome message for the user -->
+                <a href="#" class="navbar-text">Welcome, User!</a>
+                <!-- Search form -->
+                <form class="search-form" action="#">
+                    <input type="text" placeholder="Search" name="search">
+                    <button type="submit">Search</button>
+                </form>
+                <!-- User profile icon -->
+                <div class="user-profile"></div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
         </div>
     </div>
-    <div class="container body-content">
+
+    <!-- Content Area -->
+    <div class="container body-content" style="margin-top: 60px;">
         @RenderBody()
         <hr />
         <footer>

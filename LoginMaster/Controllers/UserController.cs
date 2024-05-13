@@ -77,11 +77,11 @@ namespace LoginMaster.Controllers
                 {
                     // Successful login, implement your authentication mechanism
                     // For example, set authentication cookie or JWT token
-                    return RedirectToAction("Index", "Home");
+                    return Json(new { success = true });                    
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    return Json(new { success = false });
                 }
             }
 

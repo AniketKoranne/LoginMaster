@@ -79,6 +79,27 @@
             }
         </div>
     </div>
+    <!-- Bootstrap Modal for Login Status Messages -->
+    <div class="modal fade" id="loginStatusModal" tabindex="-1" role="dialog" aria-labelledby="loginStatusModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginStatusModalLabel">Login Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="loginSuccessMessage" class="alert alert-success" style="display: none;">Login Successful!</div>
+                    <div id="loginFailureMessage" class="alert alert-danger" style="display: none;">Invalid username or password.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <!-- Include jQuery before your script -->
@@ -104,3 +125,38 @@
         });
     })(jQuery); // Pass jQuery as an argument to the self-executing function
 </script>
+<script>
+    $(document).ready(function () {
+        // Handle form submission
+        $('form').submit(function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Submit form data via AJAX
+            $.post($(this).attr('action'), $(this).serialize(), function (response) {
+                if (response.success) {
+                    // Show success message in the modal
+                    $('#loginSuccessMessage').show();
+                    $('#loginFailureMessage').hide();
+
+                    // Redirect to another view (e.g., Home/Index) after a delay
+                    setTimeout(function () {
+                        window.location.href = '/Home/Index';
+                    }, 2000); // Delay of 2 seconds (2000 milliseconds) before redirection
+                } else {
+                    // Login failed, show failure message in the modal
+                    $('#loginSuccessMessage').hide();
+                    $('#loginFailureMessage').show();
+                }
+                // Show the Bootstrap modal
+                $('#loginStatusModal').modal('show');
+            });
+        });
+
+        // Clear modal content on modal close
+        $('#loginStatusModal').on('hidden.bs.modal', function () {
+            $('#loginSuccessMessage').hide();
+            $('#loginFailureMessage').hide();
+        });
+    });
+</script>
+

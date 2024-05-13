@@ -177,6 +177,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Shared\_LayoutDash.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
