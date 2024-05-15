@@ -20,9 +20,17 @@
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
+
+    .switch.ios, .switch-on.ios, .switch-off.ios {
+        border-radius: 20rem;
+    }
+
+        .switch.ios .switch-handle {
+            border-radius: 20rem;
+        }
 </style>
-<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+<link href="~/Content/bootstrap-switch-button.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-switch-button.min.js"></script>
 
 <div class="row text-justify">
     <div class="col-md-7">
@@ -32,7 +40,7 @@
     </div>
 
     <div class="col-md-5 login-container">
-        <input id="switchButton" type="checkbox" data-toggle="switchbutton" checked data-onlabel="Login" data-offlabel="Sign Up" data-onstyle="primary" data-offstyle="warning">
+        <input id="switchButton" type="checkbox" data-toggle="switchbutton" checked data-onlabel="Login" data-offlabel="Sign Up" data-onstyle="primary" data-offstyle="warning" data-style="ios">
         <div id="loginForm" style="display:block;">
             <h3>Login</h3>
             @using (Html.BeginForm("Login", "User", FormMethod.Post))
@@ -103,7 +111,7 @@
 </div>
 
 <!-- Include jQuery before your script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script>
     // Use a self-executing anonymous function to ensure jQuery is available
     (function ($) {
@@ -125,38 +133,77 @@
         });
     })(jQuery); // Pass jQuery as an argument to the self-executing function
 </script>
-<script>
-    $(document).ready(function () {
-        // Handle form submission
-        $('form').submit(function (e) {
-            e.preventDefault(); // Prevent default form submission
+@*<script>
+        $(document).ready(function () {
+            // Handle form submission
+            $('form').submit(function (e) {
+                e.preventDefault(); // Prevent default form submission
 
-            // Submit form data via AJAX
-            $.post($(this).attr('action'), $(this).serialize(), function (response) {
-                if (response.success) {
-                    // Show success message in the modal
-                    $('#loginSuccessMessage').show();
-                    $('#loginFailureMessage').hide();
+                // Submit form data via AJAX
+                $.post($(this).attr('action'), $(this).serialize(), function (response) {
+                    if (response.success) {
+                        // Show success message in the modal
+                        $('#loginSuccessMessage').show();
+                        $('#loginFailureMessage').hide();
 
-                    // Redirect to another view (e.g., Home/Index) after a delay
-                    setTimeout(function () {
-                        window.location.href = '/Home/Index';
-                    }, 2000); // Delay of 2 seconds (2000 milliseconds) before redirection
-                } else {
-                    // Login failed, show failure message in the modal
-                    $('#loginSuccessMessage').hide();
-                    $('#loginFailureMessage').show();
-                }
-                // Show the Bootstrap modal
-                $('#loginStatusModal').modal('show');
+                        // Redirect to another view (e.g., Home/Index) after a delay
+                        setTimeout(function () {
+                            window.location.href = '/Home/Index';
+                        }, 2000); // Delay of 2 seconds (2000 milliseconds) before redirection
+                    } else {
+                        // Login failed, show failure message in the modal
+                        $('#loginSuccessMessage').hide();
+                        $('#loginFailureMessage').show();
+                    }
+                    // Show the Bootstrap modal
+                    $('#loginStatusModal').modal('show');
+                });
+            });
+
+            // Clear modal content on modal close
+            $('#loginStatusModal').on('hidden.bs.modal', function () {
+                $('#loginSuccessMessage').hide();
+                $('#loginFailureMessage').hide();
             });
         });
+    </script>*@
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            // Your existing switch button change event handling code
 
-        // Clear modal content on modal close
-        $('#loginStatusModal').on('hidden.bs.modal', function () {
-            $('#loginSuccessMessage').hide();
-            $('#loginFailureMessage').hide();
+            // Validate signup form before submission
+            $('#registerForm form').submit(function (e) {
+                e.preventDefault(); // Prevent default form submission
+
+                var password = $('#registerPassword').val();
+                var confirmPassword = $('#confirmPassword').val();
+
+                if (password !== confirmPassword) {
+                    // Passwords do not match, show error message
+                    $('#registerError').text('Passwords do not match.');
+                    return;
+                } else {
+                    $('#registerError').text(''); // Clear any previous error message
+                }
+
+                // Other validations can be added here as needed
+
+                // If all validations pass, submit the form
+                $.post($(this).attr('action'), $(this).serialize(), function (response) {
+                    if (response.success) {
+                        $('#loginSuccessMessage').show();
+                        $('#loginFailureMessage').hide();
+                        setTimeout(function () {
+                            window.location.href = '/Home/Index';
+                        }, 2000);
+                    } else {
+                        $('#loginSuccessMessage').hide();
+                        $('#loginFailureMessage').show();
+                    }
+                    $('#loginStatusModal').modal('show');
+                });
+            });
         });
-    });
+    })(jQuery);
 </script>
-

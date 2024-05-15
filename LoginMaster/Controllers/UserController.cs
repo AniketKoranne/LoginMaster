@@ -62,7 +62,7 @@ namespace LoginMaster.Controllers
         // GET: /User/Login
         public ActionResult Login()
         {
-            return View();
+            return View("Index");
         }
 
         // POST: /User/Login
@@ -77,11 +77,13 @@ namespace LoginMaster.Controllers
                 {
                     // Successful login, implement your authentication mechanism
                     // For example, set authentication cookie or JWT token
-                    return Json(new { success = true });                    
+                    //return Json(new { success = true });
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    return Json(new { success = false });
+                    //return Json(new { success = false });
+                    return View("Index", model);
                 }
             }
 
