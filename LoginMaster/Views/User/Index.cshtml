@@ -40,7 +40,24 @@
     </div>
 
     <div class="col-md-5 login-container">
-        <input id="switchButton" type="checkbox" data-toggle="switchbutton" checked data-onlabel="Login" data-offlabel="Sign Up" data-onstyle="primary" data-offstyle="warning" data-style="ios">
+        <div class="row">
+            <div class="col-md-4">
+                <input id="switchButton" type="checkbox" data-toggle="switchbutton" checked data-onlabel="Login" data-offlabel="Sign Up" data-onstyle="primary" data-offstyle="warning" data-style="ios">
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <!-- Example single Primary Dropdown -->
+                <div class="form-group">                    
+                    <select id="financialYearDropdown" class="form-control btn btn-outline-primary">
+                        <option value="2023-2024">2023-2024</option>
+                        <option value="2022-2023">2022-2023</option>
+                        <option value="2021-2022">2021-2022</option>
+                        <option value="2020-2021">2020-2021</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+            </div>
+        </div>
         <div id="loginForm" style="display:block;">
             <h3>Login</h3>
             @using (Html.BeginForm("Login", "User", FormMethod.Post))
